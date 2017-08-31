@@ -43,6 +43,13 @@ module Danger
         message = "Danger::Codeship.rb considers this a PR, " \
                   "but did not get enough information to get a repo slug" \
                   "and PR id.\n\n" \
+                  "#{env["CI_PULL_REQUEST"]}" \
+                  "#{env["CI_BRANCH"]}" \
+                  "#{env["CI_COMMIT_ID"]}" \
+                  "#{env["CI_MESSAGE"]}" \
+                  "#{env["CI_NAME"]}" \
+                  "#{env["CI_REPO_NAME"]}" \
+                  "#{env["PATH"]}" \
                   "PR path: #{pr_url}\n" \
                   "Keys: #{env.keys}"
         raise message.red
