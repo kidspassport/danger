@@ -7,7 +7,7 @@ module Danger
     end
 
     def pr_url
-      prs = client.pull_requests
+      prs = client.pull_requests("kidspassport/kidspassport")
       url = nil
       prs.each do |pr|
         if pr.head.ref == branch
@@ -18,7 +18,7 @@ module Danger
     end
 
     def pr_id
-      prs = client.pull_requests
+      prs = client.pull_requests("kidspassport/kidspassport")
       id = nil
       prs.each do |pr|
         if pr.head.ref == branch
