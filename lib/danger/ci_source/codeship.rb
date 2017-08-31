@@ -32,24 +32,25 @@ module Danger
       # CI_PULL_REQUEST
       # CI_REPO_NAME
       self.repo_url = env["CI_PULL_REQUEST"]
-      pr_url = env["CI_PULL_REQUEST"]
-      pr_path = URI.parse(env["CI_PULL_REQUEST"]).path.split("/")
-      if pr_path.count == 5
+
+      pr_url = PullRequestForBranch.new(
+        env["CI_BRANCH"]
+      ).pr_url
+
+      pr_id = PullRequestForBranch.new(
+        env["CI_BRANCH"]
+      ).pr_id
+
+      if pr_id
         # The first one is an extra slash, ignore it
-        self.repo_slug = pr_path[1] + "/" + pr_path[2]
-        self.pull_request_id = pr_path[4]
+        self.repo_slug = "kidspassport/kidspassport"
+        self.pull_request_id = pr_id
 
       else
         message = "Danger::Codeship.rb considers this a PR, " \
                   "but did not get enough information to get a repo slug" \
                   "and PR id.\n\n" \
-                  "#{env["CI_PULL_REQUEST"]}" \
-                  "#{env["CI_BRANCH"]}" \
-                  "#{env["CI_COMMIT_ID"]}" \
-                  "#{env["CI_MESSAGE"]}" \
-                  "#{env["CI_NAME"]}" \
-                  "#{env["CI_REPO_NAME"]}" \
-                  "#{env["PATH"]}" \
+                  "#{pr_id}" \
                   "PR path: #{pr_url}\n" \
                   "Keys: #{env.keys}"
         raise message.red
