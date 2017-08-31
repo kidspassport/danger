@@ -1,4 +1,5 @@
 require "danger/request_sources/github/github"
+require "danger/ci_source/support/pull_branch_for_branch"
 
 module Danger
 
